@@ -3,161 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moustapha Mohamed Yacoub - Géomaticien & Développeur Web</title>
+    <title>Moustapha Mohamed Yacoub - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .gradient-text {
-            background: linear-gradient(90deg, #3b82f6, #10b981);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .map-background {
-            background-image: linear-gradient(rgba(21, 94, 117, 0.9), rgba(21, 94, 117, 0.9)), 
-                              url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .timeline-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 24px;
-            height: calc(100% - 24px);
-            width: 2px;
-            background: linear-gradient(to bottom, #3b82f6, #10b981);
-        }
-        
-        .skill-bar {
+        .progress-bar {
             height: 8px;
             border-radius: 4px;
-            background: #e5e7eb;
+            background-color: #e0e0e0;
             overflow: hidden;
         }
-        
-        .skill-progress {
+        .progress-fill {
             height: 100%;
             border-radius: 4px;
-            background: linear-gradient(90deg, #3b82f6, #10b981);
-            transition: width 1s ease-in-out;
-            width: 0;
+            background-color: #3b82f6;
         }
-        
-        .project-card {
-            transition: all 0.3s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        .contact-form input,
-        .contact-form textarea {
-            transition: all 0.3s ease;
-        }
-        
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-        }
-        
-        .nav-link {
+        .timeline-item {
             position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
         }
-        
-        .nav-link::after {
+        .timeline-item::before {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
             left: 0;
-            background: linear-gradient(90deg, #3b82f6, #10b981);
-            transition: width 0.3s ease;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #3b82f6;
         }
-        
-        .nav-link:hover::after {
-            width: 100%;
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            width: 1px;
+            height: calc(100% - 15px);
+            background-color: #d1d5db;
         }
-        
-        .active-nav::after {
-            width: 100%;
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        .project-overlay {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
         }
     </style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800 scroll-smooth">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold gradient-text">MY Portfolio</a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="nav-link hover:text-blue-600 transition">À propos</a>
-                <a href="#experience" class="nav-link hover:text-blue-600 transition">Expériences</a>
-                <a href="#skills" class="nav-link hover:text-blue-600 transition">Compétences</a>
-                <a href="#projects" class="nav-link hover:text-blue-600 transition">Projets</a>
-                <a href="#contact" class="nav-link hover:text-blue-600 transition">Contact</a>
-            </div>
-            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">M. Yacoub</a>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#home" class="hover:text-blue-600 transition">Accueil</a></li>
+                    <li><a href="#about" class="hover:text-blue-600 transition">À propos</a></li>
+                    <li><a href="#experience" class="hover:text-blue-600 transition">Expériences</a></li>
+                    <li><a href="#skills" class="hover:text-blue-600 transition">Compétences</a></li>
+                    <li><a href="#projects" class="hover:text-blue-600 transition">Projets</a></li>
+                    <li><a href="#Galerie" class="hover:text-blue-600 transition">Galerie</a></li>
+                    <li><a href="#contact" class="hover:text-blue-600 transition">Contact</a></li>
+                </ul>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-blue-600 focus:outline-none">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white px-6 py-3 border-t">
-            <div class="flex flex-col space-y-3">
-                <a href="#about" class="nav-link hover:text-blue-600 transition">À propos</a>
-                <a href="#experience" class="nav-link hover:text-blue-600 transition">Expériences</a>
-                <a href="#skills" class="nav-link hover:text-blue-600 transition">Compétences</a>
-                <a href="#projects" class="nav-link hover:text-blue-600 transition">Projets</a>
-                <a href="#contact" class="nav-link hover:text-blue-600 transition">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="map-background text-white py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">Moustapha Mohamed Yacoub</h1>
-            <h2 class="text-2xl md:text-3xl font-semibold mb-6 gradient-text">Géomaticien & Développeur Web</h2>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
-                Passionné par les SIG, le développement web et la gestion de projets techniques. Je conçois des solutions innovantes intégrant géolocalisation et cartographie interactive.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition transform hover:scale-105">Me contacter</a>
-                <a href="#projects" class="bg-transparent hover:bg-white hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-full font-medium transition transform hover:scale-105">Voir mes projets</a>
-            </div>
-        </div>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">À propos de moi</h2>
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
-                    <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-blue-100 shadow-lg transform hover:rotate-2 transition duration-300">
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 p-4">
+        <div class="flex justify-between items-center mb-8">
+            <span class="text-xl font-bold text-blue-600">Menu</span>
+            <button id="close-menu" class="text-blue-600 focus:outline-none">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <nav>
+            <ul class="space-y-4">
+                <li><a href="#home" class="block py-2 hover:text-blue-600 transition">Accueil</a></li>
+                <li><a href="#about" class="block py-2 hover:text-blue-600 transition">À propos</a></li>
+                <li><a href="#experience" class="block py-2 hover:text-blue-600 transition">Expériences</a></li>
+                <li><a href="#skills" class="block py-2 hover:text-blue-600 transition">Compétences</a></li>
+                <li><a href="#projects" class="block py-2 hover:text-blue-600 transition">Projets</a></li>
+                <li><a href="#Galerie" class="block py-2 hover:text-blue-600 transition">Galerie</a></li>
+                <li><a href="#contact" class="block py-2 hover:text-blue-600 transition">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Moustapha Mohamed Yacoub</h1>
+                <h2 class="text-2xl md:text-3xl text-blue-600 font-semibold mb-6">Géomaticien & Développeur Web</h2>
+                <p class="text-lg mb-8 text-gray-600">Passionné par les SIG, le développement web et la gestion de projets techniques. Je conçois des solutions innovantes intégrant géolocalisation et cartographie interactive.</p>
+                <div class="flex space-x-4">
+                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition">Me contacter</a>
+                    <a href="#projects" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition">Voir mes projets</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
                         <img src="images/ali.jpg" alt="Moustapha Mohamed Yacoub" class="w-full h-full object-cover">
                     </div>
-                </div>
-                <div class="md:w-2/3 md:pl-12">
-                    <h3 class="text-2xl font-semibold mb-4">Qui suis-je ?</h3>
-                    <p class="text-lg mb-6">
-                        Je suis Moustapha Mohamed Yacoub, un professionnel passionné par les systèmes d'information géographique (SIG) et le développement web. Fort d'une formation en géomatique et d'une expérience diversifiée dans plusieurs entreprises technologiques, je me spécialise dans la conception et le développement de solutions innovantes intégrant la géolocalisation, la cartographie interactive et des outils web performants.
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-semibold text-blue-600 mb-2">Formation</h4>
-                            <p class="mb-1"><i class="fas fa-graduation-cap text-green-500 mr-2"></i> Licence Appliquée en SIG – Université de Djibouti </p>
-                            <p><i class="fas fa-certificate text-green-500 mr-2"></i> Diplôme Universitaire en Techniques des Sciences de l'Information Géographique</p>
+                    <div class="absolute -bottom-5 -right-5 bg-white p-4 rounded-lg shadow-lg">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-3 rounded-full mr-3">
+                                <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Géomaticien</p>
+                                <p class="text-gray-500 text-sm">Expert SIG</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-semibold text-blue-600 mb-2">Centres d'intérêt</h4>
-                            <p class="mb-1"><i class="fas fa-map-marked-alt text-green-500 mr-2"></i> Technologies SIG</p>
-                            <p class="mb-1"><i class="fas fa-book text-green-500 mr-2"></i> Lecture</p>
-                            <p><i class="fas fa-user-ninja text-green-500 mr-2"></i> Taekwondo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16">À propos de moi</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4">Moustapha Mohamed Yacoub</h3>
+                    <h4 class="text-xl text-blue-600 mb-6">Qui suis-je ?</h4>
+                    <p class="text-gray-600 mb-6">Je suis Moustapha Mohamed Yacoub, un professionnel passionné par les systèmes d'information géographique (SIG) et le développement web. Fort d'une formation en géomatique et d'une expérience diversifiée dans plusieurs entreprises technologiques, je me spécialise dans la conception et le développement de solutions innovantes intégrant la géolocalisation, la cartographie interactive et des outils web performants.</p>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                        <h4 class="text-xl font-semibold mb-4">Formation</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-graduation-cap text-blue-600 mt-1 mr-3"></i>
+                                <span>Licence Appliquée en SIG – Université de Djibouti</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-graduation-cap text-blue-600 mt-1 mr-3"></i>
+                                <span>Diplôme Universitaire en Techniques des Sciences de l'Information Géographique</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-4">Centres d'intérêt</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                        <i class="fas fa-globe-africa text-blue-600"></i>
+                                    </div>
+                                    <h5 class="font-medium">Technologies SIG</h5>
+                                </div>
+                                <p class="text-gray-600 text-sm">Passionné par les innovations dans le domaine des systèmes d'information géographique.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                        <i class="fas fa-book text-blue-600"></i>
+                                    </div>
+                                    <h5 class="font-medium">Lecture</h5>
+                                </div>
+                                <p class="text-gray-600 text-sm">Amateur de livres sur la technologie, la géographie et le développement personnel.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                        <i class="fas fa-user-ninja text-blue-600"></i>
+                                    </div>
+                                    <h5 class="font-medium">Taekwondo</h5>
+                                </div>
+                                <p class="text-gray-600 text-sm">Pratiquant et enseignant de Taekwondo, passionné par les arts martiaux.</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                        <i class="fas fa-code text-blue-600"></i>
+                                    </div>
+                                    <h5 class="font-medium">Développement</h5>
+                                </div>
+                                <p class="text-gray-600 text-sm">Passionné par la création d'applications web innovantes et utiles.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -166,83 +213,245 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Mon parcours professionnel</h2>
-            <div class="relative max-w-3xl mx-auto">
-                <!-- Timeline -->
+    <section id="experience" class="py-20 px-4 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16">Mon parcours professionnel</h2>
+            
+            <div class="max-w-3xl mx-auto">
                 <div class="space-y-8">
-                    <!-- Timeline Item 1 -->
-
-                       <div class="timeline-item relative pl-8">
-                        <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-green-500 border-4 border-green-100"></div>
-                        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                                <div>
-                                    <h3 class="text-xl font-semibold">Responsable des opérations</h3>
-                                    <p class="text-green-600">Faras Technologies SARL</p>
+                    <!-- Experience 1 -->
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                                <div class="flex items-center mb-3 sm:mb-0">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                        <i class="fas fa-briefcase text-blue-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Directeur des Operations</h4>
+                                        <p class="text-gray-600">FARAS TECHNOLOGIES SARL</p>
+                                    </div>
                                 </div>
-                               <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm mt-2 sm:mt-0">Actuel</span>
-                            </div>
-                            <p class="mt-3">
-                                Gestion des opérations techniques, coordination des équipes et supervision des projets SIG. Développement de solutions de suivi et de gestion des ressources.
-                            </p>
-                        </div>
-                    </div>                 
-                    <!-- Timeline Item 2 -->
-                    <div class="timeline-item relative pl-8">
-                        <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-blue-600 border-4 border-blue-100"></div>
-                        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                                <div>
-                                    <h3 class="text-xl font-semibold">Développeur SIG & Web</h3>
-                                    <p class="text-blue-600">Tabaraak ICT Solution, Waafi SAS </p>
+                                <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    oct. 2024 - aujourd'hui
                                 </div>
-                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm mt-2 sm:mt-0">2023-2024</span>
                             </div>
-                            <p class="mt-3">
-                                Conception, développement et tests de systèmes d'information incluant des applications de géolocalisation pour divers clients institutionnels et entreprises privées.
-                                Réalisation de l’analyse fonctionnelle et technique des besoins, conception d’architectures, et intégration de solutions geomarketing interactives dans des applications web.
-                                Expertise en développement de sites web dynamiques avec des technologies modernes, tout en assurant des tests fonctionnels pour garantir la performance et la fiabilité des systèmes livrés.
-                            </p>
-                        </div>
-                    </div>
-                               
-                    
-
-                                        <!-- Timeline Item 3 -->
-                    <div class="timeline-item relative pl-8">
-                        <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-blue-600 border-4 border-blue-100"></div>
-                        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                                <div>
-                                    <h3 class="text-xl font-semibold">Développeur SIG & Webmapping</h3>
-                                    <p class="text-blue-600">Ministère de l'Education Nationale et de la Formation Professionnelle (MENFOP)</p>
+                            <p class="text-gray-600 mb-2">Djibouti, Djibouti · Sur site</p>
+                            <div class="mt-4">
+                                <p class="font-medium mb-2">Compétences :</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">administration système SMIS</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">administration équipe sales</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Développement de produits</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Gestion de projets</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Opérations IT</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Gestion des opérations</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">developpeur webmapping</span>
                                 </div>
-                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm mt-2 sm:mt-0">2022-2023</span>
                             </div>
-                            <p class="mt-3">
-                                Conception, développement et tests de systèmes d'information incluant des applications de géolocalisation pour divers clients institutionnels et entreprises privées.
-                                Réalisation de l’analyse fonctionnelle et technique des besoins, conception d’architectures, et intégration de solutions geomarketing interactives dans des applications web.
-                                Expertise en développement de sites web dynamiques avec des technologies modernes, tout en assurant des tests fonctionnels pour garantir la performance et la fiabilité des systèmes livrés.
-                            </p>
                         </div>
                     </div>
 
-                    <!-- Timeline Item 4 -->
-                    <div class="timeline-item relative pl-8">
-                        <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-purple-500 border-4 border-purple-100"></div>
-                        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                                <div>
-                                    <h3 class="text-xl font-semibold">Stagiaire en Géomatique</h3>
-                                    <p class="text-purple-600">Ministère de l'Urbanisme</p>
+                    <!-- Experience 2 -->
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                                <div class="flex items-center mb-3 sm:mb-0">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                        <i class="fas fa-laptop-code text-blue-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Ingénieur logiciel</h4>
+                                        <p class="text-gray-600">Waafi</p>
+                                    </div>
                                 </div>
-                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm mt-2 sm:mt-0">2019</span>
+                                <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    sept. 2023 - oct. 2024
+                                </div>
                             </div>
-                            <p class="mt-3">
-                                Participation à des projets d'urbanisme et d'aménagement du territoire. Collecte et analyse de données géospatiales pour des projets gouvernementaux.
-                            </p>
+                            <p class="text-gray-600 mb-2">Djibouti · Sur site</p>
+                            <div class="mt-4">
+                                <p class="font-medium mb-2">Compétences :</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">formateur système SMIS</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Conception de logiciels</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Conception web</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">E-commerce</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">developpeur</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Analyse de système SMIS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience 3 -->
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                                <div class="flex items-center mb-3 sm:mb-0">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                        <i class="fas fa-user-shield text-blue-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Directeur technique adjoint national</h4>
+                                        <p class="text-gray-600">Fédération Djiboutienne de Taekwondo</p>
+                                    </div>
+                                </div>
+                                <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                    janv. 2022 - août 2024
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-2">Djibouti, Djibouti · Temps partiel</p>
+                            <div class="mt-4">
+                                <p class="font-medium mb-2">Compétences :</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">président club</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Gestion d'équipe</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Show More Button -->
+                    <div class="text-center">
+                        <button id="show-more-exp" class="text-blue-600 font-medium hover:underline">Voir plus d'expériences</button>
+                    </div>
+
+                    <!-- Hidden Experiences -->
+                    <div id="more-experiences" class="hidden space-y-8">
+                        <!-- More experiences would go here -->
+                        <!-- Experience 4 -->
+                        <div class="timeline-item">
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                                    <div class="flex items-center mb-3 sm:mb-0">
+                                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                            <i class="fas fa-bank text-blue-600 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold">Ingénieur en technologies de l'information</h4>
+                                            <p class="text-gray-600">SALAAM BANK</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                        oct. 2023 - janv. 2024
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 mb-2">Djibouti, Djibouti · Sur site</p>
+                                <div class="mt-4">
+                                    <p class="font-medium mb-2">Compétences :</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">developpeur</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Analyse de système</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">SIG</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">webmapping</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">HTML5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience 5 -->
+                        <div class="timeline-item">
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                                    <div class="flex items-center mb-3 sm:mb-0">
+                                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                            <i class="fas fa-code text-blue-600 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold">Développeur web et formateur</h4>
+                                            <p class="text-gray-600">CYBERSAN GROUP</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                        sept. 2022 - mars 2023
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 mb-2">Djibouti, Djibouti · Temps partiel</p>
+                                <div class="mt-4">
+                                    <p class="font-medium mb-2">Compétences :</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Développeur Web</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">formateur WordPress</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Création de sites web</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience 6 -->
+                        <div class="timeline-item">
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                                    <div class="flex items-center mb-3 sm:mb-0">
+                                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                            <i class="fas fa-map-marked-alt text-blue-600 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold">Développeur webmapping</h4>
+                                            <p class="text-gray-600">MENFOP</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                        avr. 2022 - janv. 2023
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 mb-2">Djibouti, Djibouti · Indépendant</p>
+                                <div class="mb-4">
+                                    <p class="font-medium mb-2">Développeur d'application de géolocalisation</p>
+                                    <p class="text-gray-600">Réalisation d'une application de géolocalisation des établissements scolaires à l'échelle nationale.</p>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="font-medium mb-2">Compétences :</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Création de sites web</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">developpeur webmapping</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Freelance Experience -->
+                        <div class="timeline-item">
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                                    <div class="flex items-center mb-3 sm:mb-0">
+                                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                            <i class="fas fa-rocket text-blue-600 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold">Membre Fondateur & Ingénieur</h4>
+                                            <p class="text-gray-600">GEOSOM · Freelance</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                        Depuis sept. 2019
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 mb-2">Djibouti, Djibouti</p>
+                                <div class="mb-4">
+                                    <h5 class="font-medium mb-2">Fonctions principales :</h5>
+                                    <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                                        <li>Membre créateur de l'entreprise GEOSOM, spécialisée dans les solutions géospatiales</li>
+                                        <li>Responsable de l'idéation et structuration des projets stratégiques</li>
+                                        <li>Recherche active de projets liés à la cartographie numérique</li>
+                                        <li>Préparation documentaire pour les appels d'offres</li>
+                                        <li>Développement de solutions web de cartographie interactive</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="font-medium mb-2">Compétences acquises :</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Applications web SIG</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Cartographie numérique</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Structuration de projets</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Gestion de projets</span>
+                                        <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">Innovation technologique</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -251,126 +460,135 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Mes compétences</h2>
-                        
+    <section id="skills" class="py-20 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16">Mes compétences</h2>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <!-- SIG Skills -->
                 <div>
-                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
-                        <i class="fas fa-map-marked-alt text-blue-500 mr-3 text-2xl"></i>
-                        Systèmes d'Information Géographique
-                    </h3>
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-map text-blue-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">Systèmes d'Information Géographique</h3>
+                    </div>
+                    
                     <div class="space-y-5">
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span>ArcGIS Pro</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">ArcGIS Pro</span>
                                 <span>90%</span>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90%"></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span>QGIS</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">QGIS</span>
                                 <span>85%</span>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85%"></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span>Leaflet</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Leaflet</span>
                                 <span>80%</span>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="80%"></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span>GeoServer</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">GeoServer</span>
                                 <span>75%</span>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="75%"></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                                
+                
                 <!-- Web Development Skills -->
                 <div>
-                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
-                        <i class="fas fa-code text-green-500 mr-3 text-2xl"></i>
-                        Développement Web
-                    </h3>
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-laptop-code text-blue-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">Développement Web</h3>
+                    </div>
+                    
                     <div class="space-y-5">
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span>HTML/CSS/JavaScript</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">HTML/CSS/JavaScript</span>
                                 <span>85%</span>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85%"></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span>React</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">React</span>
                                 <span>75%</span>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="75%"></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span>Node.js</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Node.js</span>
                                 <span>70%</span>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="70%"></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 70%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between mb-1">
-                                <span>PHP/SQL Server</span>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">PHP/SQL Server</span>
                                 <span>80%</span>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="80%"></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                                
-                <!-- Other Skills -->
-                <div class="md:col-span-2">
-                    <h3 class="text-2xl font-semibold mb-6 flex items-center">
-                        <i class="fas fa-tools text-purple-500 mr-3 text-2xl"></i>
-                        Autres compétences
-                    </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-gray-100 p-4 rounded-lg text-center transform hover:scale-105 transition duration-300">
-                            <i class="fas fa-paint-brush text-3xl text-blue-500 mb-2"></i>
-                            <h4 class="font-semibold">Adobe Photoshop</h4>
-                        </div>
-                        <div class="bg-gray-100 p-4 rounded-lg text-center transform hover:scale-105 transition duration-300">
-                            <i class="fas fa-pencil-ruler text-3xl text-green-500 mb-2"></i>
-                            <h4 class="font-semibold">Adobe Illustrator</h4>
-                        </div>
-                        <div class="bg-gray-100 p-4 rounded-lg text-center transform hover:scale-105 transition duration-300">
-                            <i class="fas fa-users text-3xl text-purple-500 mb-2"></i>
-                            <h4 class="font-semibold">Gestion de projet</h4>
-                        </div>
-                        <div class="bg-gray-100 p-4 rounded-lg text-center transform hover:scale-105 transition duration-300">
-                            <i class="fas fa-language text-3xl text-red-500 mb-2"></i>
-                            <h4 class="font-semibold">Multilingue</h4>
-                        </div>
+            </div>
+            
+            <!-- Other Skills -->
+            <div class="mt-16">
+                <div class="flex items-center mb-8">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                        <i class="fas fa-tools text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold">Autres compétences</h3>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-center">
+                        <i class="fas fa-paint-brush text-blue-600 mr-3"></i>
+                        <span>Adobe Photoshop</span>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-center">
+                        <i class="fas fa-pencil-ruler text-blue-600 mr-3"></i>
+                        <span>Adobe Illustrator</span>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-center">
+                        <i class="fas fa-tasks text-blue-600 mr-3"></i>
+                        <span>Gestion de projets</span>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-center">
+                        <i class="fas fa-language text-blue-600 mr-3"></i>
+                        <span>Multilingue</span>
                     </div>
                 </div>
             </div>
@@ -378,510 +596,322 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Mes projets</h2>
-                        
+    <section id="projects" class="py-20 px-4 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16">Mes projets</h2>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
-                    <div class="h-48 bg-blue-500 relative">
-                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Application scolaire" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-blue-900 bg-opacity-50 flex items-center justify-center">
-                            <i class="fas fa-school text-white text-5xl"></i>
+                <div class="relative rounded-lg overflow-hidden shadow-lg project-card">
+            <img src="images/geolocalisation.png" alt="Application scolaire" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 project-overlay flex items-end p-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Application scolaire</h3>
+                            <p class="text-gray-300 mb-4">Application de géolocalisation des établissements scolaires</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">ArcGIS</span>
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">React</span>
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Node.js</span>
+                            </div>
+                            <a href="#" class="inline-block mt-4 text-white hover:text-blue-300 transition">
+                                Voir plus <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Application de géolocalisation des établissements scolaires</h3>
-                        <p class="text-gray-600 mb-4">Solution nationale pour localiser et évaluer les établissements scolaires à Djibouti.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">ArcGIS</span>
-                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">React</span>
-                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Node.js</span>
-                        </div>
-                        <button class="mt-4 text-blue-600 hover:text-blue-800 transition flex items-center">
-                            Voir plus <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
                     </div>
                 </div>
-                                
+                
                 <!-- Project 2 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
-                    <div class="h-48 bg-green-500 relative">
-                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Suivi de véhicules" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-green-900 bg-opacity-50 flex items-center justify-center">
-                            <i class="fas fa-truck text-white text-5xl"></i>
+                <div class="relative rounded-lg overflow-hidden shadow-lg project-card">
+                    <img src="images/HRM.png" alt="Suivi de véhicules" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 project-overlay flex items-end p-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2"> RHM ET Suivi de véhicules</h3>
+                            <p class="text-gray-300 mb-4">Application de suivi de véhicules avec cartographie RHM</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">React</span>
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">JavaScript</span>
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Leaflet </span>
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">PHP </span>  
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">GeoServer </span>
+
+                            </div>
+                            <a href="https://fadgis-djibouti-mbf7.vercel.app/" class="inline-block mt-4 text-white hover:text-blue-300 transition">
+                                Voir plus <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Application de suivi de véhicules avec cartographie RHM</h3>
-                        <p class="text-gray-600 mb-4">Système de gestion de flotte avec cartographie des routes et historique des mouvements.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">QGIS</span>
-                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">PHP</span>
-                        </div>
-                        <button class="mt-4 text-blue-600 hover:text-blue-800 transition flex items-center">
-                            Voir plus <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
                     </div>
                 </div>
-
-
+                
                 <!-- Project 3 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
-                    <div class="h-48 bg-green-500 relative">
-                        <img src="images/teakwondo website.png" alt="Club de Taekwondo de Djibouti" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-green-900 bg-opacity-50 flex items-center justify-center">
-                            <i class="fas fa-truck text-white text-5xl"></i>
+                <div class="relative rounded-lg overflow-hidden shadow-lg project-card">
+                    <img src="images/website taekwondo club .jpg" alt="Club de Taekwondo" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 project-overlay flex items-end p-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Club de Taekwondo</h3>
+                            <p class="text-gray-300 mb-4">Site Web Officiel du Club de Taekwondo de Djibouti</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">HTML/CSS</span>
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">JavaScript</span>
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">AI </span>
+                            </div>
+                            <a href="https://club-taekwondo-lion.netlify.app" target="_blank" class="inline-block mt-4 text-white hover:text-blue-300 transition">
+                                Voir plus <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Site Web Officiel du Club de Taekwondo de Djibouti</h3>
-                        <p class="text-gray-600 mb-4">Ce projet consiste à développer un site web moderne, responsive et dynamique pour représenter le Club de Taekwondo 
-                            de Djibouti https://club-taekwondo-lion.netlify.app/. Le site vise à promouvoir les activités du club, faciliter la communication avec les membres et simplifier les démarches d'inscription.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">QGIS</span>
-                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">PHP</span>
-                        </div>
-                        <button class="mt-4 text-blue-600 hover:text-blue-800 transition flex items-center">
-                            Voir plus <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
                     </div>
                 </div>
-
-                                
+                
                 <!-- Project 4 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md">
-                    <div class="h-48 bg-purple-500 relative">
-                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Site web CyberSan" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-purple-900 bg-opacity-50 flex items-center justify-center">
-                            <i class="fas fa-laptop-code text-white text-5xl"></i>
+                <div class="relative rounded-lg overflow-hidden shadow-lg project-card">
+                    <img src="images/SMIS.png" alt="Site web CyberSan" class="w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 project-overlay flex items-end p-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">système Management information scolaire SMIS</h3>
+                            <p class="text-gray-300 mb-4">hef projets SMIS</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Fiches projets</span>
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Documents techniques</span>
+                                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Méthodologies</span>
+                            </div>
+                            <a href="https://smis.menfop.dj/" class="inline-block mt-4 text-white hover:text-blue-300 transition">
+                                Voir plus <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
                         </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Site web de CyberSan Group</h3>
-                        <p class="text-gray-600 mb-4">Portail d'entreprise avec intégration de solutions SIG et présentation des services.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
-                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Leaflet</span>
-                        </div>
-                        <button class="mt-4 text-blue-600 hover:text-blue-800 transition flex items-center">
-                            Voir plus <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
                     </div>
                 </div>
             </div>
-                        
-            <div class="text-center mt-12">
-                <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition transform hover:scale-105">
-                    Voir plus de projets <i class="fas fa-arrow-right ml-2"></i>
-                </button>
+
+
+
+
+    <!-- Galerie Section -->
+    <section id="Galerie" class="py-20 px-4 bg-white">
+        <div class="container mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold text-center text-blue-600 mb-12">Galerie de Réalisations</h2>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- Image 1 -->
+            <div class="overflow-hidden rounded-lg shadow-lg">
+              <img src="images/Projets smis.png" alt="Projet 1" class="w-full h-60 object-cover hover:scale-105 transition duration-300">
             </div>
+            
+            <!-- Image 2 -->
+            <div class="overflow-hidden rounded-lg shadow-lg">
+              <img src="images/Centrafrique.....jpg" alt="Projet 2" class="w-full h-60 object-cover hover:scale-105 transition duration-300">
+            </div>
+            
+            <!-- Image 2 -->
+            <div class="overflow-hidden rounded-lg shadow-lg">
+                <img src="images/Journée Africaine de l'Alimentation Scolaire.jpg" alt="Projet 2" class="w-full h-60 object-cover hover:scale-105 transition duration-300">
+              </div>
+
+            <!-- Image 3 -->
+            <div class="overflow-hidden rounded-lg shadow-lg">
+              <img src="images/alii.jpg" alt="Projet 3" class="w-full h-60 object-cover hover:scale-105 transition duration-300">
+            </div>
+      
+
+
+            <!-- Image 3 -->
+            <div class="overflow-hidden rounded-lg shadow-lg">
+                <img src="images/alii.jpg" alt="Projet 3" class="w-full h-60 object-cover hover:scale-105 transition duration-300">
+            </div>
+
+            <!-- Tu peux ajouter plus d’images ici -->
+          </div>
+        </div>
+      </section>
+
+
+
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Contactez-moi</h2>
-                        
-            <div class="max-w-4xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <!-- Contact Info -->
-                    <div>
+    <section id="contact" class="py-20 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16">Contactez-moi</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <div class="bg-blue-50 p-8 rounded-lg">
                         <h3 class="text-2xl font-semibold mb-6">Disponible pour de nouvelles opportunités</h3>
-                        <p class="mb-8">
-                            Si vous avez un projet intéressant ou souhaitez discuter d'une collaboration, n'hésitez pas à me contacter. Je serai ravi d'échanger avec vous.
-                        </p>
-                                                
-                        <div class="space-y-4">
+                        <p class="text-gray-600 mb-8">Si vous avez un projet intéressant ou souhaitez discuter d'une collaboration, n'hésitez pas à me contacter. Je serai ravi d'échanger avec vous.</p>
+                        
+                        <div class="space-y-6">
                             <div class="flex items-start">
-                                <i class="fas fa-envelope text-blue-500 text-xl mt-1 mr-4"></i>
+                                <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-envelope text-blue-600"></i>
+                                </div>
                                 <div>
                                     <h4 class="font-semibold">Email</h4>
-                                    <p class="text-gray-600">aliteak7749@gmail.com</p>
+                                    <a href="mailto:aliteak7749@gmail.com" class="text-blue-600 hover:underline">aliteak7749@gmail.com</a>
                                 </div>
                             </div>
-                                    <div class="flex items-start">
-                                    <i class="fab fa-linkedin text-blue-700 text-xl mt-1 mr-4"></i>
-                                    <div>
-                                        <h4 class="font-semibold">LinkedIn</h4>
-                                        <p>
-                                        <a href="https://www.linkedin.com/in/moustapha-mohamed-yacoub" target="_blank" class="text-blue-600 hover:underline">
-                                            linkedin.com/in/moustapha-mohamed-yacoub
-                                        </a>
-                                        </p>
-                                    </div>
-                                    </div>
                             <div class="flex items-start">
-                                <i class="fas fa-phone-alt text-green-500 text-xl mt-1 mr-4"></i>
+                                <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                                    <i class="fab fa-linkedin-in text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">LinkedIn</h4>
+                                    <a href="https://linkedin.com/in/moustapha-mohamed-yacoub" target="_blank" class="text-blue-600 hover:underline">linkedin.com/in/moustapha-mohamed-yacoub</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-phone-alt text-blue-600"></i>
+                                </div>
                                 <div>
                                     <h4 class="font-semibold">Téléphone</h4>
-                                    <p class="text-gray-600">+253 77 75 66 38</p>
+                                    <a href="tel:+25377756638" class="text-blue-600 hover:underline">+253 77 75 66 38</a>
                                 </div>
                             </div>
                             <div class="flex items-start">
-                                <i class="fas fa-map-marker-alt text-red-500 text-xl mt-1 mr-4"></i>
+                                <div class="bg-blue-100 p-3 rounded-lg mr-4">
+                                    <i class="fas fa-map-marker-alt text-blue-600"></i>
+                                </div>
                                 <div>
                                     <h4 class="font-semibold">Localisation</h4>
                                     <p class="text-gray-600">Djibouti, Djibouti</p>
                                 </div>
                             </div>
                         </div>
-                                                
+                        
                         <div class="mt-8">
                             <h4 class="font-semibold mb-4">Réseaux sociaux</h4>
                             <div class="flex space-x-4">
-                                <a href="#" class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition transform hover:scale-110">
-                                    <i class="fab fa-linkedin-in"></i>
+                                <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition">
+                                    <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-blue-400 text-white flex items-center justify-center hover:bg-blue-500 transition transform hover:scale-110">
+                                <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition">
                                     <i class="fab fa-twitter"></i>
                                 </a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 text-white flex items-center justify-center hover:bg-gray-900 transition transform hover:scale-110">
+                                <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 transition transform hover:scale-110">
-                                    <i class="fab fa-youtube"></i>
+                                <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition">
+                                    <i class="fab fa-instagram"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
-                                        
-                        
-
-                        <form action="https://formsubmit.co/" method="POST">
-                        <!-- Anti-spam et redirection -->
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="merci.html">
-
-                        <!-- Nom complet -->
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <form class="bg-white p-8 rounded-lg shadow-md">
                         <div class="mb-6">
                             <label for="name" class="block text-gray-700 font-medium mb-2">Nom complet</label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                         </div>
-
-                        <!-- Email -->
                         <div class="mb-6">
                             <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                         </div>
-
-                        <!-- Téléphone -->
                         <div class="mb-6">
-                            <label class="block text-gray-700 font-medium mb-2">Téléphone</label>
-                            <div class="flex">
-                            <select name="country_code" required class="border border-gray-300 px-3 py-2 rounded-l-lg focus:outline-none focus:border-blue-500">
-                                <option value="+253">+253 🇩🇯</option>
-                                <option value="+33">+33 🇫🇷</option>
-                                <option value="+1">+1 🇺🇸</option>
-                                <option value="+44">+44 🇬🇧</option>
-                                <option value="+91">+91 🇮🇳</option>
-                                <!-- Ajoute d'autres codes pays si besoin -->
-                            </select>
-                            <input type="tel" name="phone" placeholder="77 75 66 38" required class="w-full px-4 py-2 border-t border-b border-r border-gray-300 rounded-r-lg focus:outline-none focus:border-blue-500">
+                            <label for="phone" class="block text-gray-700 font-medium mb-2">Téléphone</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <span class="text-gray-500">+253 🇩🇯</span>
+                                </div>
+                                <input type="tel" id="phone" class="w-full pl-20 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition placeholder="77 75 66 38">
                             </div>
                         </div>
-
-                        <!-- Sujet -->
                         <div class="mb-6">
                             <label for="subject" class="block text-gray-700 font-medium mb-2">Sujet</label>
-                            <input type="text" id="subject" name="subject" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                         </div>
-
-                        <!-- Message -->
                         <div class="mb-6">
                             <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
-                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"></textarea>
                         </div>
-
-                        <!-- Bouton -->
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-medium transition transform hover:scale-105">
-                            Envoyer le message <i class="fas fa-paper-plane ml-2"></i>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center">
+                            Envoyer le message
+                            <i class="fas fa-paper-plane ml-2"></i>
                         </button>
-                        </form>
-
-
-
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-6">
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="container mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
-                    <h3 class="text-2xl font-bold gradient-text">Moustapha Mohamed Yacoub</h3>
-                    <p class="mt-2 text-gray-400">Géomaticien & Développeur Web</p>
+                    <h3 class="text-2xl font-bold mb-2">Moustapha Mohamed Yacoub</h3>
+                    <p class="text-gray-400">Géomaticien & Développeur Web</p>
                 </div>
-                <div class="flex space-x-6">
-                    <a href="#about" class="hover:text-blue-400 transition">À propos</a>
-                    <a href="#experience" class="hover:text-blue-400 transition">Expériences</a>
-                    <a href="#projects" class="hover:text-blue-400 transition">Projets</a>
-                    <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+                
+                <div class="mb-6 md:mb-0">
+                    <ul class="flex flex-wrap justify-center space-x-6">
+                        <li><a href="#about" class="hover:text-blue-400 transition">À propos</a></li>
+                        <li><a href="#experience" class="hover:text-blue-400 transition">Expériences</a></li>
+                        <li><a href="#skills" class="hover:text-blue-400 transition">Compétences</a></li>
+                        <li><a href="#projects" class="hover:text-blue-400 transition">Projets</a></li>
+                        <li><a href="#contact" class="hover:text-blue-400 transition">Contact</a></li>
+                    </ul>
                 </div>
-            </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 Moustapha Mohamed Yacoub. Tous droits réservés.</p>
+                
                 <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition">
+                    <a href="https://linkedin.com/in/moustapha-mohamed-yacoub" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-blue-400 transition">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
+                    <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-blue-400 transition">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition">
-                        <i class="fab fa-youtube"></i>
+                    <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-blue-400 transition">
+                        <i class="fab fa-twitter"></i>
                     </a>
                 </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 Moustapha Mohamed Yacoub. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 transform hover:scale-110">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Project Modal -->
-    <div id="project-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 opacity-0 invisible transition-opacity duration-300">
-        <div class="bg-white rounded-lg max-w-4xl w-full max-h-screen overflow-y-auto mx-4">
-            <div class="p-6">
-                <div class="flex justify-between items-start mb-6">
-                    <h3 id="modal-title" class="text-2xl font-bold"></h3>
-                    <button id="close-modal" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                <div id="modal-content" class="prose max-w-none">
-                    <!-- Content will be inserted here by JavaScript -->
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Mobile Menu Toggle
+        // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu');
         const mobileMenu = document.getElementById('mobile-menu');
         
         mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.add('open');
         });
-
-        // Smooth Scrolling for Anchor Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                    
-                    // Update active nav link
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active-nav');
-                    });
-                    this.classList.add('active-nav');
-                }
-            });
-        });
-
-        // Back to Top Button
-        const backToTopButton = document.getElementById('back-to-top');
         
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.remove('opacity-0', 'invisible');
-                backToTopButton.classList.add('opacity-100', 'visible');
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+         
+        // Show more experiences
+        const showMoreButton = document.getElementById('show-more-exp');
+        const moreExperiences = document.getElementById('more-experiences');
+        
+        showMoreButton.addEventListener('click', () => {
+            if (moreExperiences.classList.contains('hidden')) {
+                moreExperiences.classList.remove('hidden');
+                showMoreButton.textContent = 'Voir moins';
             } else {
-                backToTopButton.classList.remove('opacity-100', 'visible');
-                backToTopButton.classList.add('opacity-0', 'invisible');
+                moreExperiences.classList.add('hidden');
+                showMoreButton.textContent = "Voir plus d'expériences";
             }
         });
-        
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Animate skill bars on scroll
-        const animateSkillBars = () => {
-            const skillBars = document.querySelectorAll('.skill-progress');
-            
-            skillBars.forEach(bar => {
-                const width = bar.getAttribute('data-width');
-                bar.style.width = width;
-            });
-        };
-
-        // Intersection Observer for skill bars animation
-        const skillsSection = document.getElementById('skills');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateSkillBars();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        if (skillsSection) {
-            observer.observe(skillsSection);
-        }
-
-        // Project Modal
-        const projectModal = document.getElementById('project-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const modalContent = document.getElementById('modal-content');
-        const closeModal = document.getElementById('close-modal');
-        
-        // Sample project details (in a real scenario, this would come from a database or API)
-        const projects = {
-            'Application de géolocalisation des établissements scolaires': {
-                description: 'Une solution complète développée pour le ministère de l\'Éducation nationale permettant de localiser et évaluer tous les établissements scolaires à Djibouti. L\'application offre des fonctionnalités avancées de cartographie, de recherche et d\'analyse spatiale.',
-                features: [
-                    'Cartographie interactive des écoles avec différentes couches d\'information',
-                    'Système d\'évaluation des infrastructures scolaires',
-                    'Tableau de bord analytique pour les décideurs',
-                    'Export de rapports personnalisés'
-                ],
-                technologies: ['ArcGIS Pro', 'React', 'Node.js', 'PostgreSQL', 'GeoServer']
-            },
-            'Application de suivi de véhicules avec cartographie RHM': {
-                description: 'Système complet de gestion de flotte développé pour une entreprise de transport, intégrant une cartographie détaillée des routes et un historique des mouvements des véhicules.',
-                features: [
-                    'Suivi en temps réel des véhicules',
-                    'Cartographie des routes avec classification RHM',
-                    'Historique des trajets et analyse des performances',
-                    'Alertes et notifications personnalisables'
-                ],
-                technologies: ['QGIS', 'JavaScript', 'PHP', 'MySQL', 'Leaflet']
-            },
-            'Site web de CyberSan Group': {
-                description: 'Portail d\'entreprise moderne présentant les services de CyberSan Group avec une intégration fluide de solutions SIG et une interface utilisateur intuitive.',
-                features: [
-                    'Présentation des services avec cartographie interactive',
-                    'Blog technique et actualités',
-                    'Formulaire de contact intelligent',
-                    'Design responsive et accessible'
-                ],
-                technologies: ['HTML/CSS', 'JavaScript', 'Leaflet', 'PHP', 'WordPress']
-            }
-        };
-        
-        // Add click event to all "Voir plus" buttons
-        document.querySelectorAll('.project-card button').forEach((button, index) => {
-            button.addEventListener('click', () => {
-                const projectCard = button.closest('.project-card');
-                const projectTitle = projectCard.querySelector('h3').textContent;
-                
-                // Set modal title
-                modalTitle.textContent = projectTitle;
-                
-                // Set modal content
-                const project = projects[projectTitle];
-                let content = `
-                    <p class="mb-4">${project.description}</p>
-                    <h4 class="font-semibold text-lg mb-2">Fonctionnalités principales :</h4>
-                    <ul class="list-disc pl-5 mb-4">
-                        ${project.features.map(feature => `<li>${feature}</li>`).join('')}
-                    </ul>
-                    <h4 class="font-semibold text-lg mb-2">Technologies utilisées :</h4>
-                    <div class="flex flex-wrap gap-2">
-                        ${project.technologies.map(tech => `<span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">${tech}</span>`).join('')}
-                    </div>
-                `;
-                
-                modalContent.innerHTML = content;
-                
-                // Show modal
-                projectModal.classList.remove('invisible', 'opacity-0');
-                projectModal.classList.add('opacity-100');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        
-        // Close modal
-        closeModal.addEventListener('click', () => {
-            projectModal.classList.remove('opacity-100');
-            projectModal.classList.add('opacity-0', 'invisible');
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Close modal when clicking outside content
-        projectModal.addEventListener('click', (e) => {
-            if (e.target === projectModal) {
-                projectModal.classList.remove('opacity-100');
-                projectModal.classList.add('opacity-0', 'invisible');
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Form submission
-        const contactForm = document.querySelector('.contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
+         
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 
-                // Get form values
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const subject = document.getElementById('subject').value;
-                const message = document.getElementById('message').value;
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
                 
-                // In a real scenario, you would send this data to a server
-                console.log('Form submitted:', { name, email, subject, message });
-                
-                // Show success message
-                alert('Merci pour votre message ! Je vous répondrai dès que possible.');
-                
-                // Reset form
-                contactForm.reset();
-            });
-        }
-
-        // Update active nav link based on scroll position
-        const sections = document.querySelectorAll('section');
-        
-        window.addEventListener('scroll', () => {
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (pageYOffset >= (sectionTop - 100)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active-nav');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active-nav');
+                // Close mobile menu if open
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
                 }
             });
         });
